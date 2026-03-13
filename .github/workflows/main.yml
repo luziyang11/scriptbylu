@@ -1,0 +1,37 @@
+name: Run 开心游抽奖 script
+
+on:
+  schedule:
+    # 每天 UTC 时间 8:00 运行
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x' # 指定 Python 版本，例如 3.9
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. 运行 Python 脚本
+      - name: Run 开心游抽奖 script
+        env:
+          MY_API_KEY: ${{ secrets.MY_API_KEY }}  # 调用 Secret
+        #  MY_ACCOUNT: ${{ secrets.MY_ACCOUNT }}  # 调用 Secret
+        # MY_PASSWORD: ${{ secrets.MY_PASSWORD }}  # 调用 Secret
+          MY_CONFIG: ${{ vars.MY_CONFIG }}       # 调用 Variable
+        run: python 开心游抽奖.py
