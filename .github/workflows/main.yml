@@ -29,9 +29,4 @@ jobs:
 
       # 4. 运行 Python 脚本
       - name: Run 开心游抽奖 script
-        env:
-          MY_API_KEY: ${{ secrets.MY_API_KEY }}  # 调用 Secret
-        #  MY_ACCOUNT: ${{ secrets.MY_ACCOUNT }}  # 调用 Secret
-        # MY_PASSWORD: ${{ secrets.MY_PASSWORD }}  # 调用 Secret
-          MY_CONFIG: ${{ vars.MY_CONFIG }}       # 调用 Variable
         run: python 开心游抽奖.py
